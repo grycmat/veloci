@@ -115,7 +115,10 @@ class _VotingScreenState extends State<VotingScreen> {
     return Scaffold(
       appBar: VotingAppBar(
         title: widget.sessionName,
-        onClosePressed: () => Navigator.of(context).pop(),
+        onClosePressed: () {
+          // Go back to dashboard or previous screen
+          Navigator.of(context).pop();
+        },
         onAddPressed: _handleAddTask,
       ),
       body: Column(

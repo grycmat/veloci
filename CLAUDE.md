@@ -59,8 +59,14 @@ flutter pub upgrade
 ```
 lib/
   ├── main.dart              # App entry point, DynamicColor theme setup
+  ├── routing/               # Navigation configuration
+  │   ├── app_router.dart    # GoRouter configuration and routes
+  │   └── route_names.dart   # Route path constants
   ├── screens/               # Full-page screens
-  │   └── voting_screen.dart # Main poker voting interface
+  │   ├── dashboard_screen.dart      # Landing page
+  │   ├── create_session_screen.dart # Session setup form
+  │   ├── add_task_screen.dart       # Task creation form
+  │   └── voting_screen.dart         # Main poker voting interface
   ├── theme/                 # Theming configuration
   │   ├── theme.dart         # Material 3 light/dark themes
   │   └── colors.dart        # App color palette
@@ -78,9 +84,33 @@ lib/
 
 ### Key Dependencies
 - `flutter` (SDK ^3.9.2)
+- `go_router` (^17.0.0) - Declarative routing with deep linking support
 - `dynamic_color` (^1.8.1) - Dynamic color support from system/wallpaper
+- `flutter_secure_storage` (^9.2.4) - Secure local data storage
 - `cupertino_icons` (^1.0.8) - iOS-style icons
 - `flutter_lints` (^5.0.0) - Lint rules for code quality
+
+### Routing System
+
+The app uses **go_router** for declarative, URL-based navigation:
+- **Route Definitions**: All routes defined in `lib/routing/app_router.dart`
+- **Route Constants**: Path strings centralized in `lib/routing/route_names.dart`
+- **Data Passing**: Uses `state.extra` parameter with `Map<String, dynamic>` for passing data between screens
+- **Deep Linking**: Supports web URLs and mobile deep links
+- **404 Handling**: Custom error page with navigation back to dashboard
+
+#### Navigation Flow
+```
+Dashboard (/)
+    ↓
+Create Session (/create-session)
+    ↓ passes: sessionName, sessionDescription
+Add Task (/add-task)
+    ↓ passes: all session + task data
+Voting (/voting)
+```
+
+**Key Pattern**: Use `context.go()` for route replacement, `context.push()` for stacking routes
 
 ### Theming System
 
@@ -89,18 +119,23 @@ The app uses Material 3 with a comprehensive theming system:
 - `DynamicColorBuilder` in main.dart adapts themes to system colors when available
 - Custom color definitions in `lib/theme/colors.dart`
 - Consistent design tokens: 16px border radius, 0 elevation, specific typography scale
+- Theme-aware: all widgets use `Theme.of(context)` for colors and text styles
 
 ### State Management
 
-Currently uses Flutter's built-in StatefulWidget pattern:
-- Local state in `_VotingScreenState` for selected card value
-- Participant data (mock) stored in state
+Currently uses Flutter's built-in StatefulWidget pattern (no state management library):
+- Local state in form screens for TextEditingControllers
+- Route data passed via go_router's `extra` parameter
+- Participant data (mock) stored in voting screen state
 - Vote counting derived from participant data
+- **Note**: No global state management - all data passed through navigation
 
 ### Widget Patterns
 
 Widgets follow these conventions:
-- Stateless widgets for presentation-only components
-- Stateful widgets when hover states or animations are needed
-- Theme-aware: all colors and text styles from `Theme.of(context)`
-- Responsive: widgets adapt to theme brightness changes
+- **Stateless widgets** for presentation-only components
+- **Stateful widgets** when forms, hover states, or animations are needed
+- **Theme-aware**: All colors and text styles from `Theme.of(context)`
+- **Responsive**: Widgets adapt to theme brightness changes
+- **Reusable**: `VotingButton` used across screens for consistency
+- **Material 3**: All components use Material 3 design system

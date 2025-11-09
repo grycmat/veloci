@@ -1,6 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:veloci/screens/voting_screen.dart';
+import 'package:veloci/routing/app_router.dart';
 import 'package:veloci/theme/theme.dart';
 
 void main() {
@@ -23,15 +23,11 @@ class VelociApp extends StatelessWidget {
             ? lightAppTheme.copyWith(colorScheme: darkDynamic)
             : darkAppTheme;
 
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'Veloci Poker Session',
           theme: lightTheme,
           darkTheme: darkTheme,
-          home: VotingScreen(
-            taskTitle: "taskTitle",
-            taskDescription: "taskDescription",
-            sessionName: "sessionName",
-          ),
+          routerConfig: AppRouter.router,
         );
       },
     );
