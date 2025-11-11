@@ -62,125 +62,131 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Task'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        context.pop();
+      },
+      canPop: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Add Task'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.pop(),
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Session info chip
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: colorScheme.primary.withValues(alpha: 0.3),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.casino_outlined,
-                        size: 20,
-                        color: colorScheme.primary,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: colorScheme.primary.withValues(alpha: 0.3),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.sessionName,
-                              style: textTheme.titleMedium?.copyWith(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            if (widget.sessionDescription.isNotEmpty)
-                              Text(
-                                widget.sessionDescription,
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurface.withValues(
-                                    alpha: 0.7,
-                                  ),
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                          ],
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.casino_outlined,
+                          size: 20,
+                          color: colorScheme.primary,
                         ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.sessionName,
+                                style: textTheme.titleMedium?.copyWith(
+                                  color: colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              if (widget.sessionDescription.isNotEmpty)
+                                Text(
+                                  widget.sessionDescription,
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurface.withValues(
+                                      alpha: 0.7,
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Text(
+                    'Add a task to estimate',
+                    style: textTheme.headlineMedium?.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Provide details about the user story or task that needs estimation.',
+                    style: textTheme.bodyLarge?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  TextField(
+                    controller: _taskTitleController,
+                    decoration: InputDecoration(
+                      labelText: 'Task Title',
+                      hintText: 'e.g., User Story #123',
+                      prefixIcon: const Icon(Icons.task_outlined),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ],
+                    ),
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
                   ),
-                ),
-                const SizedBox(height: 32),
-                Text(
-                  'Add a task to estimate',
-                  style: textTheme.headlineMedium?.copyWith(
-                    color: colorScheme.onSurface,
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _taskDescriptionController,
+                    decoration: InputDecoration(
+                      labelText: 'Task Description (Optional)',
+                      hintText: 'As a user, I want to... so that I can...',
+                      prefixIcon: const Icon(Icons.notes_outlined),
+                      alignLabelWithHint: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    maxLines: 6,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) => _handleStartVoting(),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Provide details about the user story or task that needs estimation.',
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                ),
-                const SizedBox(height: 32),
-                TextField(
-                  controller: _taskTitleController,
-                  decoration: InputDecoration(
-                    labelText: 'Task Title',
-                    hintText: 'e.g., User Story #123',
-                    prefixIcon: const Icon(Icons.task_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                  const SizedBox(height: 32),
+                  Center(
+                    child: VotingButton(
+                      text: 'Start Voting',
+                      onPressed: _handleStartVoting,
+                      icon: Icons.how_to_vote,
+                      width: 280,
                     ),
                   ),
-                  textInputAction: TextInputAction.next,
-                  autofocus: true,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _taskDescriptionController,
-                  decoration: InputDecoration(
-                    labelText: 'Task Description (Optional)',
-                    hintText: 'As a user, I want to... so that I can...',
-                    prefixIcon: const Icon(Icons.notes_outlined),
-                    alignLabelWithHint: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  maxLines: 6,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (_) => _handleStartVoting(),
-                ),
-                const SizedBox(height: 32),
-                Center(
-                  child: VotingButton(
-                    text: 'Start Voting',
-                    onPressed: _handleStartVoting,
-                    icon: Icons.how_to_vote,
-                    width: 280,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

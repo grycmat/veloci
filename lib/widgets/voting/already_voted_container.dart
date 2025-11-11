@@ -2,14 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class VotesContainer extends StatelessWidget {
+class AlreadyVotedContainer extends StatelessWidget {
   final int votedCount;
   final int totalCount;
   final List<Widget> avatars;
   final VoidCallback? onRevealPressed;
   final bool canReveal;
 
-  const VotesContainer({
+  const AlreadyVotedContainer({
     super.key,
     required this.votedCount,
     required this.totalCount,
@@ -27,9 +27,10 @@ class VotesContainer extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
           decoration: BoxDecoration(
-            color: colorScheme.surface.withValues(alpha: 0.8),
-            border: Border(
-              top: BorderSide(color: colorScheme.outline, width: 1),
+            color: colorScheme.primaryContainer,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
             ),
           ),
           padding: const EdgeInsets.all(16),

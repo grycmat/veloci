@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:veloci/theme/colors.dart';
 
-class VotesAvatar extends StatelessWidget {
+class AlreadyVotedAvatar extends StatelessWidget {
   final String imageUrl;
   final bool hasVoted;
   final String? userName;
 
-  const VotesAvatar({
+  const AlreadyVotedAvatar({
     super.key,
     required this.imageUrl,
     this.hasVoted = false,

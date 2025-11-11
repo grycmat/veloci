@@ -19,11 +19,22 @@ Veloci is a Planning Poker app that helps agile teams estimate story points coll
 
 ## Tech Stack
 
-- **Flutter** (SDK ^3.9.2)
+**Core Framework:**
+- **Flutter** (SDK ^3.9.2) with Dart 3.9.2
+- **Material 3** design system with SpaceGrotesk custom font
+
+**Key Dependencies:**
 - **go_router** (^17.0.0) - Declarative routing with deep linking
-- **Material 3** design system
-- **dynamic_color** package for adaptive theming
-- **flutter_secure_storage** for local data storage
+- **dynamic_color** (^1.8.1) - Adaptive theming from system colors
+- **flutter_secure_storage** (^9.2.4) - Secure local data storage
+- **drift** (^2.29.0) - Type-safe SQL database (configured for future use)
+- **path_provider** (^2.1.5) - File system access
+
+**Development Tools:**
+- **flutter_lints** (^5.0.0) - Code quality and best practices
+- **build_runner** (^2.10.1) - Code generation
+- **flutter_launcher_icons** (^0.14.4) - App icon generation
+- **flutter_native_splash** (^2.4.7) - Splash screen generation
 
 ## Getting Started
 
@@ -56,19 +67,44 @@ flutter run
 ### Running Tests
 
 ```bash
+# Run all tests
 flutter test
+
+# Run specific test file
+flutter test test/path/to/test_file.dart
 ```
 
-### Code Analysis
+### Code Quality
 
 ```bash
+# Run analyzer with configured lints
 flutter analyze
+
+# Format code
+dart format .
 ```
 
-### Code Formatting
+### Code Generation
 
 ```bash
-dart format .
+# Generate Drift database files (for future database implementation)
+dart run build_runner build
+
+# Watch for changes and regenerate
+dart run build_runner watch
+
+# Clean and rebuild
+dart run build_runner build --delete-conflicting-outputs
+```
+
+### Asset Generation
+
+```bash
+# Generate launcher icons
+dart run flutter_launcher_icons
+
+# Generate splash screens
+dart run flutter_native_splash:create
 ```
 
 ### Building
@@ -106,10 +142,14 @@ lib/
 │   └── colors.dart        # Color palette
 └── widgets/               # Reusable components
     └── voting/            # Voting-specific widgets
-        ├── voting_card.dart
-        ├── voting_button.dart
-        ├── votes_container.dart
-        └── ...
+        ├── voting_card.dart              # Individual poker card
+        ├── voting_card_container.dart    # Card grid layout
+        ├── already_voted_container.dart  # Vote status display
+        ├── already_voted_avatar.dart     # Participant avatars
+        ├── voting_app_bar.dart           # Custom app bar
+        ├── voting_header.dart            # Task title
+        ├── task_description.dart         # Task description
+        └── voting_button.dart            # Custom button
 ```
 
 ## User Flow
@@ -131,7 +171,10 @@ The app uses **go_router** for declarative, URL-based navigation:
 Material 3 design with dynamic color adaptation:
 - Light and dark themes defined in `lib/theme/theme.dart`
 - System wallpaper color extraction via `dynamic_color` package
-- Consistent 16px border radius across components
+- **Custom Brand Colors**: Primary (#F20DF2), Secondary (#9D4EDD), Tertiary (#00D9FF)
+- **Design Tokens**: 16px border radius, 0 elevation, SpaceGrotesk font family
+- **Typography**: Complete Material 3 text theme with negative letter spacing
+- Theme-aware components using `Theme.of(context)`
 
 ### State Management
 Currently uses Flutter's built-in state management:

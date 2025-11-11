@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:veloci/widgets/voting/votes_avatar.dart';
-import 'package:veloci/widgets/voting/votes_container.dart';
+import 'package:veloci/widgets/voting/already_voted_avatar.dart';
+import 'package:veloci/widgets/voting/already_voted_container.dart';
+import 'package:veloci/widgets/voting/task_description.dart';
 import 'package:veloci/widgets/voting/voting_app_bar.dart';
 import 'package:veloci/widgets/voting/voting_card.dart';
 import 'package:veloci/widgets/voting/voting_card_container.dart';
-import 'package:veloci/widgets/voting/voting_description.dart';
 import 'package:veloci/widgets/voting/voting_header.dart';
 
 class VotingScreen extends StatefulWidget {
@@ -116,7 +116,6 @@ class _VotingScreenState extends State<VotingScreen> {
       appBar: VotingAppBar(
         title: widget.sessionName,
         onClosePressed: () {
-          // Go back to dashboard or previous screen
           Navigator.of(context).pop();
         },
         onAddPressed: _handleAddTask,
@@ -129,7 +128,7 @@ class _VotingScreenState extends State<VotingScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   VotingHeader(title: widget.taskTitle),
-                  VotingDescription(description: widget.taskDescription),
+                  TaskDescription(description: widget.taskDescription),
                   VotingCardContainer(
                     children: _cardValues.map((value) {
                       final isIcon = value == '☕';
@@ -146,11 +145,11 @@ class _VotingScreenState extends State<VotingScreen> {
               ),
             ),
           ),
-          VotesContainer(
+          AlreadyVotedContainer(
             votedCount: _votedCount,
             totalCount: _totalCount,
             avatars: _participants.map((participant) {
-              return VotesAvatar(
+              return AlreadyVotedAvatar(
                 imageUrl: participant['imageUrl'],
                 hasVoted: participant['hasVoted'],
                 userName: participant['name'],

@@ -24,28 +24,30 @@ class DashboardScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.casino_outlined,
-                  size: 80,
-                  color: colorScheme.primary,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: Image.asset('assets/icon/app_icon.png'),
                 ),
-                const SizedBox(height: 24),
 
-                Text(
-                  'Veloci',
-                  style: textTheme.displayLarge?.copyWith(
-                    color: colorScheme.primary,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    'Veloci',
+                    style: textTheme.displayLarge?.copyWith(
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 8),
 
-                Text(
-                  'Scrum Poker',
-                  style: textTheme.headlineSmall?.copyWith(
-                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 48.0),
+                  child: Text(
+                    'Scrum Poker',
+                    style: textTheme.headlineSmall?.copyWith(
+                      color: colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 48),
 
                 VotingButton(
                   text: 'Start New Session',

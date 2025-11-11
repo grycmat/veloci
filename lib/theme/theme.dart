@@ -6,6 +6,7 @@ import 'colors.dart';
 class AppTheme {
   static ThemeData lightTheme() {
     return ThemeData(
+      fontFamily: 'SpaceGrotesk',
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: _lightColorScheme(),
@@ -78,6 +79,7 @@ class AppTheme {
 
   static ThemeData darkTheme() {
     return ThemeData(
+      fontFamily: 'SpaceGrotesk',
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: _darkColorScheme(),
@@ -152,17 +154,33 @@ class AppTheme {
     return const ColorScheme.light(
       primary: AppColors.primary,
       onPrimary: Colors.white,
-      secondary: AppColors.primary,
+      primaryContainer: Color(0xFFFCE4FC),
+      onPrimaryContainer: Color(0xFF3D0A3E),
+      secondary: AppColors.secondary,
       onSecondary: Colors.white,
+      secondaryContainer: Color(0xFFEDD7F5),
+      onSecondaryContainer: Color(0xFF2E1B35),
+      tertiary: AppColors.tertiary,
+      onTertiary: Colors.white,
+      tertiaryContainer: Color(0xFFD0F4FF),
+      onTertiaryContainer: Color(0xFF003D4A),
       surface: AppColors.backgroundLight,
       onSurface: AppColors.textLight,
       onSurfaceVariant: Color(0xFF6B5A6C),
       surfaceContainerHighest: AppColors.surfaceLight,
       surfaceContainerHigh: AppColors.surfaceContainerLight,
-      error: Color(0xFFEF4444),
+      surfaceContainerLow: AppColors.surfaceVariantLight,
+      error: AppColors.error,
       onError: Colors.white,
+      errorContainer: Color(0xFFFFDAD6),
+      onErrorContainer: Color(0xFF410002),
       outline: AppColors.borderLight,
-      outlineVariant: Colors.transparent,
+      outlineVariant: Color(0xFFE4D8E4),
+      shadow: Colors.black,
+      scrim: Colors.black,
+      inverseSurface: Color(0xFF342234),
+      onInverseSurface: Color(0xFFF5EFF5),
+      inversePrimary: Color(0xFFFFB0FF),
     );
   }
 
@@ -170,17 +188,33 @@ class AppTheme {
     return ColorScheme.dark(
       primary: AppColors.primary,
       onPrimary: Colors.white,
-      secondary: AppColors.primary,
+      primaryContainer: Color(0xFF6B0A6D),
+      onPrimaryContainer: Color(0xFFFFD8FF),
+      secondary: AppColors.secondary,
       onSecondary: Colors.white,
+      secondaryContainer: Color(0xFF4A2B57),
+      onSecondaryContainer: Color(0xFFF2DEFF),
+      tertiary: AppColors.tertiary,
+      onTertiary: Color(0xFF003544),
+      tertiaryContainer: Color(0xFF004E62),
+      onTertiaryContainer: Color(0xFFB3EBFF),
       surface: AppColors.backgroundDark,
-      onSurface: Colors.white,
+      onSurface: AppColors.textDark,
       onSurfaceVariant: Colors.white.withOpacity(0.6),
       surfaceContainerHighest: AppColors.surfaceDark,
       surfaceContainerHigh: AppColors.surfaceContainerDark,
-      error: const Color(0xFFEF4444),
+      surfaceContainerLow: AppColors.surfaceVariantDark,
+      error: AppColors.error,
       onError: Colors.white,
+      errorContainer: Color(0xFF93000A),
+      onErrorContainer: Color(0xFFFFDAD6),
       outline: Colors.white.withOpacity(0.1),
-      outlineVariant: Colors.transparent,
+      outlineVariant: Colors.white.withOpacity(0.05),
+      shadow: Colors.black,
+      scrim: Colors.black,
+      inverseSurface: Color(0xFFE8E1E8),
+      onInverseSurface: Color(0xFF312131),
+      inversePrimary: Color(0xFFB800BA),
     );
   }
 

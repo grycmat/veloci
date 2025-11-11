@@ -18,16 +18,10 @@ class VotingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    final _matrix = Matrix4.identity()
-      ..translate(0.5, 0.5)
-      ..scale(0.9)
-      ..translate(-0.5, -0.5);
-
     return InkWell(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        transform: isSelected ? _matrix : null,
         decoration: BoxDecoration(
           color: isSelected
               ? colorScheme.primary.withValues(alpha: 0.9)
